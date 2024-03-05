@@ -1,0 +1,112 @@
+{% include 'styling.html' %}
+
+    <title>Watering System Edit Schedule</title>
+
+  </head>
+
+  <body>
+  
+  <div class="container">
+
+	 <h1>Watering System Schedule</h1>
+
+	 <div id="message" class="alert alert-success hidden"></div>
+      
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h2 class="panel-title">Watering System {% if form['mode'] == "edit" %}Edit{% else %}Insert{% endif %} Schedule Entry</h2>
+		</div>
+		
+		<div class="panel-body">
+
+			<form>
+				
+				<div class="row">
+					 <div class="form-group col-xs-3">
+						  <label for="valve">Location</label>
+					 </div>
+					 <div class="form-group col-xs-8">
+						  <select class="form-control" id="valve" incoming="{{form['valve']}}">
+								{% for v in valvenames %}
+								<option value="{{v['valve']}}" {% if form['valve'] == v['valve']|string() %}selected{% endif %}>{{v['name']}}</option>
+								{% endfor %}
+						  </select>
+					 </div>
+				</div>
+			
+			<div class="row">
+					 <div class="form-group col-xs-3">
+						  <label for="day">Day(s)</label>
+					 </div>
+					 <div class="form-group col-xs-2">
+						  <select class="form-control" id="day" incoming="{{form['dayn']}}">
+								<option value="0" {% if form['dayn'] == "0" %}selected{% endif %}>All Days</option>
+								<option value="1" {% if form['dayn'] == "1" %}selected{% endif %}>Monday</option>
+								<option value="2" {% if form['dayn'] == "2" %}selected{% endif %}>Tuesday</option>
+								<option value="3" {% if form['dayn'] == "3" %}selected{% endif %}>Wednesday</option>
+								<option value="4" {% if form['dayn'] == "4" %}selected{% endif %}>Thursday</option>
+								<option value="5" {% if form['dayn'] == "5" %}selected{% endif %}>Friday</option>
+								<option value="6" {% if form['dayn'] == "6" %}selected{% endif %}>Saturday</option>
+								<option value="7" {% if form['dayn'] == "7" %}selected{% endif %}>Sunday</mption>
+						  </select>
+					 </div>
+				</div>
+
+				{% set start = form['start'].split(":") %}
+				{% set dur = form['duration'].split(":") %}
+				
+				<div class="row" id="start" incoming="{{form['start']}}">
+					 <div class="form-group col-xs-3">
+						  <label for="starthour">Start Time (HH:MM)</label>
+					 </div>
+					 <div class="form-group col-xs-2">
+						  <select class="form-control" id="starthour" incoming="{{start[0]}}">
+						  {% for h in range(24) %}
+								<option value="{{"%02d"|format(h)}}" {% if h == start[0]|int() %}selected{% endif %}>{{"%02d"|format(h)}}</option>
+						  {% endfor %}
+						  </select>
+					 </div>
+					 <div class="form-group col-xs-2">
+						  <select class="form-control" id="startmin" incoming="{{start[1]}}">
+						  {% for h in range(60) %}
+								<option value="{{"%02d"|format(h)}}" {% if h == start[1]|int() %}selected{% endif %}>{{"%02d"|format(h)}}</option>
+						  {% endfor %}
+						  </select>
+					 </div>
+				</div>
+
+					 <div class="row" id="duration" incoming="{{form['duration']}}">
+						  <div class="form-group col-xs-3">
+								<label for="durhour">Duration (MM:SS)</label>
+						  </div>
+						  <div class="form-group col-xs-2">
+								<select class="form-control" id="durmin" incoming="{{dur[1]}}">
+								{% for h in range(60) %}
+									 <option value="{{"%02d"|format(h)}}" {% if h == dur[1]|int() %}selected{% endif %}>{{"%02d"|format(h)}}</option>
+								{% endfor %}
+								</select>
+						  </div>
+						  <div class="form-group col-xs-2">
+								<select class="form-control" id="dursec" incoming="{{dur[2]}}">
+								{% for h in range(60) %}
+									 <option value="{{"%02d"|format(h)}}" {% if h == dur[2]|int() %}selected{% endif %}>{{"%02d"|format(h)}}</option>
+								{% endfor %}
+								</select>
+						  </div>
+					 </div>
+		  
+
+			</form>
+               </div>
+
+		<div class="panel-footer clearfix">
+				<a type="button" href="/watering" class="btn btn-default">Home</a>
+				<a href="/watering/schedule" role="button"  type="button" class="btn btn-default">Manage Schedule</a>
+				<button class="btn btn-primary pull-right" id="{{form['mode']}}">{% if form['mode'] == "edit" %}Update{% else %}Insert{% endif %}</button>
+		</div>
+
+
+		</div>
+	</div>
+  </body>
+</html>

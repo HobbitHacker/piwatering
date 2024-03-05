@@ -1,0 +1,7 @@
+# Ignore Python compiled objects
+*.pyc
+/static/css/bootstrap*
+/static/js/bootstrap*
+/static/js/jquery*
+/static/fonts
+dbconfig.py

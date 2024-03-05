@@ -1,0 +1,13 @@
+{% include 'styling.html' %}
+    <title>Watering System Status</title>
+  </head>
+  <body>
+      <h1>Manual Water On</h1>
+{% if message is defined %}
+<p class="danger">{{message}}</p>
+{% else %}
+<p>Valve {{valve}} switched on.</p>
+{% endif %}
+<a href="/">Back to Status Page</a>
+  </body>
+</html>

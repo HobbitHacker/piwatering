@@ -1,0 +1,43 @@
+
+body
+{
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.schedule-row
+{
+    line-height: 0.5em;
+}
+
+.timeslot
+{
+    border: 1px dashed lightgray;
+    border-collapse: collapse;
+    width: 5em;
+}
+
+.history-table
+{
+    font-size: 0.8em;
+    row-height: 0.8em;
+    padding: 1px;
+    margin: 1px;
+}
+
+.editrow tbody>tr>td
+{
+    vertical-align: middle;
+}
+
+.delete-icon
+{
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+.watering-valign
+{
+    align-items:center;
+    display: flex;
+}

@@ -1,0 +1,106 @@
+{% include 'styling.html' %}
+
+    <title>Watering System Schedule</title>
+
+  </head>
+
+  <body>
+
+      <h1>Watering System Schedule</h1>
+      
+              <div id="message" class="alert alert-success hidden"></div>
+
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h2 class="panel-title">Watering System Schedule</h2>
+		</div>
+		
+		<div class="panel-body">
+	
+                    <table class="editrow table table-condensed table-striped" id="schedule-table">
+                            <thead>
+                                    <tr class="schedule-row">
+					    <th></th>
+                                            <th>Day</th>
+                                            <th>Start</th>
+                                            <th>Location</th>
+                                            <th>Duration</th>
+                                            <th class="text-center">Delete</th>
+                                    </tr>
+                            </thead>
+
+                            <tbody>
+
+				{% for timer in timers %}
+				<tr id="schedule{{loop.index}}" dayn="{{timer["dayn"]}}" day="{{timer["day"]}}" start="{{timer["start"]}}" valve="{{timer["valve"]}}" duration="{{timer["duration"]}}" name="{{timer["name"]}}">
+					<td class="editrow" ><button id="edit{{loop.index}}" class="btn btn-primary">Edit</button></td>
+                                        <td class="editrow" >{{timer["day"]}}</td>
+                                        <td class="editrow" >{{timer["start"]}}</td>
+                                        <td class="editrow" >{{timer["name"]}}</td>
+                                        <td class="editrow" >{{timer["duration"]}}</td>
+                                        <td class="editrow text-center"><span class="delete-icon glyphicon glyphicon-trash" id="delete{{loop.index}}"></span></td>
+                                    </tr>
+                                {% endfor %}
+
+                            </tbody>
+
+                    </table>
+                    
+        </div>
+
+		<div class="panel-footer clearfix">
+			<a href="/watering" role="button"  type="button" class="btn btn-default">Home</a>
+			<a href="/watering/insert" role="button"  type="button" class="btn btn-primary pull-right">Add New</a>
+      </div> 
+
+	</div>
+	
+        <div id="deleteSchedule" class="modal border-danger">
+                <div class="modal-dialog">
+
+                        <div class="modal-content">
+
+                                <div class="modal-header text-bg-danger">
+                                        <h4 class="modal-title">Delete Schedule?</h4>
+                                </div>
+
+                                <div class="modal-body">
+                                        <form class="form-horizontal">
+                                                <div class="form-group">
+                                                        <label class="col-sm-3 control-label" for="deleteName">Name</label>
+                                                        <div class="col-sm-7">
+                                                                <p id="deleteName" class="form-control-static"></p>
+                                                        </div>
+                                                </div>
+                                                <div class="form-group">
+                                                        <label class="col-sm-3 control-label" for="deleteDay">Day</label>
+                                                        <div class="col-sm-7">
+                                                                <p id="deleteDay" class="form-control-static"></p>
+                                                        </div>
+                                                </div>
+                                                <div class="form-group">
+                                                        <label class="col-sm-3 control-label" for="deleteStart">Name</label>
+                                                        <div class="col-sm-7">
+                                                                <p id="deleteStart" class="form-control-static"></p>
+                                                        </div>
+                                                </div>
+                                                <div class="form-group">
+                                                        <label class="col-sm-3 control-label" for="deleteDuration">Name</label>
+                                                        <div class="col-sm-7">
+                                                                <p id="deleteDuration" class="form-control-static"></p>
+                                                        </div>
+                                                </div>
+                                                
+                                        </form>
+                                </div>
+
+                                <div class="modal-footer">
+                                        <button class="btn btn-danger" id="deleteOK" >Delete</button>
+                                        <button class="btn btn-default" id="deleteCancel">Cancel</button>
+                                </div>
+                        </div>
+                </div>
+        </div>
+        
+  </body>
+</html>

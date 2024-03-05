@@ -1,0 +1,146 @@
+{% include 'styling.html' %}
+
+    <title>Watering System Status</title>
+
+  </head>
+
+  <body>
+  <div class="container">
+
+      <h1>Watering System</h1>
+
+        <div id="message" class="alert alert-success hidden"></div>
+
+      <div class="panel panel-primary">
+		<div class="panel-heading">
+			<h2 class="panel-title">Watering System Status</h2>
+		</div>
+		
+		<div class="panel-body">
+	
+        <table class="table table-striped visible-md-block visible-lg-block visible-sm-block">
+                <thead>
+                        <tr>
+                                <th class="col-md-1">Area</th>
+                                <th class="col-md-1">Status</th>
+                                <th class="col-md-1">Message</th>
+                                <th class="col-md-1">Activate</th>
+                                <th class="col-md-1">Edit Name</th>
+                        </tr>
+                </thead>
+                <tbody>
+                <div class="row">
+                        {% for valve in valves %}
+                                {% if valve["status"] == "On" %}
+                                <tr id="r{{valve["valve"]}}" class="success">
+                                {% else %}
+                                <tr id="r{{valve["valve"]}}">
+                                {% endif %}
+                                <td class="col-md-1" id="name{{valve["valve"]}}">{{valve["name"]}}</td>
+                                <td class="col-md-1" id="s{{valve["valve"]}}">{{valve["status"]}}</td>
+                                <td class="col-md-1" id="m{{valve["valve"]}}">{{valve["left"]}}</td>
+                                <td class="col-md-1"><button  id="act{{valve['valve']}}"  data-valve="{{valve["valve"]}}" data-valve-state="off" class="btn btn-success valve-btn">Activate</button></td>
+                                <td class="col-md-1"><button data-valve="{{valve["valve"]}}" class="btn btn-default edit-btn">Edit Name</button></td>
+                                </tr>
+                        {% endfor %}
+                </div>
+                </tbody>
+        </table>
+
+        
+        <div class="visible-xs-block">
+
+                {% for valve in valves %}
+                
+                        {% set rowcolour = loop.cycle('', 'bg-info') %}
+                        {% set offcolour = rowcolor %}
+                        {% if valve["status"] == "On" %}
+                                {% set rowcolor = 'bg-success' %}
+                        {% endif %}
+                        <div class="row watering-valign {{rowcolour}}" data-off-color="{{offcolour}}" id="mob-r{{valve["valve"]}}">
+                                <div class="col-xs-8">
+                                        <div class="row"">
+                                                <div class="col-xs-3"><strong>Area</strong></div>
+                                                <div class="col-xs-7" id="mob-name{{valve["valve"]}}">{{valve["name"]}}</div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-xs-3"><strong>Status</strong></div>
+                                                <div class="col-xs-7" id="mob-s{{valve["valve"]}}">{{valve["status"]}}</div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-xs-3"><strong>Message</strong></div>
+                                                <div class="col-xs-7" id="mob-m{{valve["valve"]}}">{{valve["left"]}}</div>
+                                        </div>
+                                </div>
+                                <div class="col-xs-2 watering-valign">
+                                        <button class="btn btn-primary edit-btn glyphicon glyphicon-edit" data-valve="{{valve["valve"]}}"></button>
+                                        &nbsp;&nbsp;
+                                        <button id="mob-act{{valve['valve']}}" class="btn btn-success valve-btn glyphicon glyphicon-flash"  data-valve-state="off" data-valve="{{valve["valve"]}}"></button>
+                                </div>
+                        </div>
+                                
+                {% endfor %}
+                
+        </div>
+        
+                <p class="text-muted"><em>Manual Watering Time is 5 minutes. This can be amended in Settings.</em></p>
+                    
+        </div>
+        
+		<div class="panel-footer">
+			<a class="btn btn-primary" href="/watering/schedule" role="button">Edit Schedule</a>
+			<button id="off" class="btn btn-primary pull-right">Stop all valves</button>
+		</div>
+
+	</div>
+
+	
+        <div class="panel panel-info">
+        
+            <div class="panel-heading">
+                    <h2 class="panel-title">Recent Events</h2>
+            </div>
+            
+            <div class="panel-body" id="history">
+            </div>
+            
+        </div>
+
+        <div id="editName" class="modal">
+                <div class="modal-dialog">
+                
+                        <div class="modal-content">
+
+                                <div class="modal-header">
+                                        <h4 class="modal-title">Edit Name</h4>
+                                </div>
+
+                                <div class="modal-body">
+                                        <form class="form-horizontal" id="editNameForm">
+                                                <div class="form-group">
+                                                        <label class="col-sm-3 control-label" for="oldName">Old Name</label>
+                                                        <div class="col-sm-7">
+                                                                <p id="oldName" class="form-control-static"></p>
+                                                        </div>
+                                                </div>
+                                                <div class="form-group">      
+                                                        <label for="newName" class="col-sm-3 control-label">New Name</label>
+                                                        <div class="col-sm-7">
+                                                                <input type="text" class="form-control" id="newName">
+                                                        </div>
+                                                </div>
+                                        </form>
+                                </div>
+                                
+                                <div class="modal-footer">
+                                        <button class="btn btn-primary" id="editOK" >OK</button>
+                                        <button class="btn btn-primary" id="editCancel">Cancel</button>
+                                </div>
+                        </div>
+                </div>
+        </div>
+
+     </div>
+        
+  </body>
+</html>

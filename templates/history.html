@@ -1,0 +1,27 @@
+
+		<table class="table table-striped table-condensed history-table">
+			<thead>
+				<tr>
+					<th>Time</th>
+					<th>Area</th>
+					<th>Event</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for event in history %}
+                                        {% if event["valve"] == 0 %}
+                                        <tr class="warning">
+                                        {% else %}
+					<tr>
+					{% endif %}
+                                            <td>{{event["ts"].strftime("%d-%m-%Y %H:%M:%S")}}</td>
+                                            {% if event["valve"] == 0 %}
+                                            <td>System</td>
+                                            {% else %}
+                                            <td>{{event["name"]}}</td>
+                                            {% endif %}
+                                            <td class="col-sm-5">{{event["message"]}}</td>
+                                        </tr>
+				{% endfor %}
+			</tbody>
+		</table>
